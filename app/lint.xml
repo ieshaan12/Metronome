@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Catch hardcoded user-facing strings (should use string resources) -->
+    <issue id="HardcodedText" severity="error" />
+
+    <!-- Flag unnecessary SDK version checks (minSdk is 29) -->
+    <issue id="ObsoleteSdkInt" severity="error" />
+
+    <!-- Detect unused resources that bloat the APK -->
+    <issue id="UnusedResources" severity="warning" />
+
+    <!-- Catch un-recycled TypedArrays, Cursors, etc. -->
+    <issue id="Recycle" severity="error" />
+
+    <!-- Catch API calls that require a permission not declared in the manifest -->
+    <issue id="MissingPermission" severity="error" />
+</lint>

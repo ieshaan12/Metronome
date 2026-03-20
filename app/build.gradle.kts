@@ -63,6 +63,11 @@ android {
         compose = true
         buildConfig = true
     }
+    lint {
+        lintConfig = file("lint.xml")
+        abortOnError = true
+        htmlReport = true
+    }
 }
 
 dependencies {

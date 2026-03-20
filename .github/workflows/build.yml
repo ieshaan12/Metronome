@@ -22,4 +22,6 @@ jobs:
 
       - run: ./gradlew assembleDebug
 
+      - run: ./gradlew lintDebug
+
       - run: ./gradlew test
