@@ -1,7 +1,17 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
 }
+
+val localProperties = Properties()
+rootProject.file("local.properties").let { file ->
+    if (file.exists()) FileInputStream(file).use { localProperties.load(it) }
+}
+
+fun localProp(key: String): String = localProperties.getProperty(key, "")
 
 android {
     namespace = "com.ieshaan12.metronome"
@@ -21,9 +31,24 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(localProp("RELEASE_STORE_FILE"))
+            storePassword = localProp("RELEASE_STORE_PASSWORD")
+            keyAlias = localProp("RELEASE_KEY_ALIAS")
+            keyPassword = localProp("RELEASE_KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+            isDebuggable = true
+        }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -36,6 +61,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -55,4 +81,6 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    debugImplementation(libs.leakcanary)
+    debugImplementation(libs.androidx.compose.runtime.tracing)
 }
