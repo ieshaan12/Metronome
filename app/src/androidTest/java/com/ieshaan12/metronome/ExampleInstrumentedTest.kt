@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.ieshaan12.metronome", appContext.packageName)
+        assertEquals("com.ieshaan12.metronome.debug", appContext.packageName)
     }
 }

@@ -4,44 +4,29 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.activity.viewModels
+import com.ieshaan12.metronome.audio.AudioTrackMetronomeEngine
+import com.ieshaan12.metronome.audio.HapticTickCallback
+import com.ieshaan12.metronome.ui.MetronomeScreen
+import com.ieshaan12.metronome.ui.MetronomeViewModel
+import com.ieshaan12.metronome.ui.MetronomeViewModelFactory
 import com.ieshaan12.metronome.ui.theme.MetronomeTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: MetronomeViewModel by viewModels {
+        MetronomeViewModelFactory(AudioTrackMetronomeEngine(
+            tickCallback = HapticTickCallback(this@MainActivity),
+        ))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MetronomeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                MetronomeScreen(viewModel)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MetronomeTheme {
-        Greeting("Android")
     }
 }

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Metronome</string>
+    <string name="bpm_label">BPM</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="increase_bpm">Increase BPM</string>
+    <string name="decrease_bpm">Decrease BPM</string>
+    <string name="time_signature_format">Time signature %1$s</string>
+    <string name="beat_indicator_format">Beat %1$d of %2$d</string>
+    <string name="bpm_input_hint">Enter BPM</string>
 </resources>
