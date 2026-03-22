@@ -21,9 +21,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.ieshaan12.metronome.R
@@ -37,7 +39,7 @@ fun BpmDisplay(
     modifier: Modifier = Modifier,
 ) {
     var isEditing by remember { mutableStateOf(false) }
-    var editText by remember { mutableStateOf("") }
+    var editValue by remember { mutableStateOf(TextFieldValue()) }
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
 
@@ -56,8 +58,12 @@ fun BpmDisplay(
                 focusRequester.requestFocus()
             }
             BasicTextField(
-                value = editText,
-                onValueChange = { editText = it.filter { c -> c.isDigit() } },
+                value = editValue,
+                onValueChange = { newValue ->
+                    editValue = newValue.copy(
+                        text = newValue.text.filter { c -> c.isDigit() },
+                    )
+                },
                 modifier = Modifier
                     .focusRequester(focusRequester)
                     .fillMaxWidth()
@@ -74,7 +80,7 @@ fun BpmDisplay(
                 ),
                 keyboardActions = KeyboardActions(
                     onDone = {
-                        val parsed = editText.toIntOrNull()
+                        val parsed = editValue.text.toIntOrNull()
                         if (parsed != null) onBpmInput(parsed)
                         isEditing = false
                         focusManager.clearFocus()
@@ -90,7 +96,11 @@ fun BpmDisplay(
                 modifier = Modifier
                     .testTag("bpm_display")
                     .clickable {
-                        editText = bpm.toString()
+                        val text = bpm.toString()
+                        editValue = TextFieldValue(
+                            text = text,
+                            selection = TextRange(text.length),
+                        )
                         isEditing = true
                     },
             )

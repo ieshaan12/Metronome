@@ -18,14 +18,24 @@ import com.ieshaan12.metronome.ui.theme.MetronomeTheme
 fun BpmControls(
     onDecrement: () -> Unit,
     onIncrement: () -> Unit,
+    onDecrementFive: () -> Unit,
+    onIncrementFive: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val decreaseDesc = stringResource(R.string.decrease_bpm)
     val increaseDesc = stringResource(R.string.increase_bpm)
+    val decreaseFiveDesc = stringResource(R.string.decrease_bpm_five)
+    val increaseFiveDesc = stringResource(R.string.increase_bpm_five)
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
+        FilledTonalButton(
+            onClick = onDecrementFive,
+            modifier = Modifier.semantics { contentDescription = decreaseFiveDesc },
+        ) {
+            Text("−5")
+        }
         FilledTonalButton(
             onClick = onDecrement,
             modifier = Modifier.semantics { contentDescription = decreaseDesc },
@@ -38,6 +48,12 @@ fun BpmControls(
         ) {
             Text("+1")
         }
+        FilledTonalButton(
+            onClick = onIncrementFive,
+            modifier = Modifier.semantics { contentDescription = increaseFiveDesc },
+        ) {
+            Text("+5")
+        }
     }
 }
 
@@ -45,6 +61,11 @@ fun BpmControls(
 @Composable
 private fun BpmControlsPreview() {
     MetronomeTheme {
-        BpmControls(onDecrement = {}, onIncrement = {})
+        BpmControls(
+            onDecrement = {},
+            onIncrement = {},
+            onDecrementFive = {},
+            onIncrementFive = {},
+        )
     }
 }
