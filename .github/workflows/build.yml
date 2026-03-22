@@ -37,6 +37,22 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
+      - name: Create dummy keystore
+        run: |
+          keytool -genkeypair -v \
+            -keystore keystore/ci-release.jks \
+            -alias ci \
+            -keyalg RSA -keysize 2048 -validity 1 \
+            -storepass android -keypass android \
+            -dname "CN=CI,O=CI"
+          cat <<EOF > local.properties
+          RELEASE_STORE_FILE=../keystore/ci-release.jks
+          RELEASE_STORE_PASSWORD=android
+          RELEASE_KEY_ALIAS=ci
+          RELEASE_KEY_PASSWORD=android
+          EOF
+          sed -i 's/^          //' local.properties
+
       - run: ./gradlew assembleRelease
 
       - run: ./gradlew lintVitalRelease
