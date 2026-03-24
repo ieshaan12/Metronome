@@ -46,4 +46,6 @@ A precise, sample-accurate metronome for Android — built with Kotlin and Jetpa
 
 ## License
 
+Licensed under the [Apache License 2.0](LICENSE).
+
 See the in-app licenses screen for third-party library attributions.
