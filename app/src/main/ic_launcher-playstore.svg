@@ -1,0 +1,15 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Forest Earth: Dark forest / Warm cream / Olive-green metronome — Cantarell Extra Bold, rounded edges -->
+  <rect width="1024" height="1024" fill="#1B2A1B"/>
+  <text x="50%" y="58%" text-anchor="middle" font-family="Cantarell" font-weight="800" font-size="550" fill="#F5F0E1">OK</text>
+  <g opacity="0.70">
+    <!-- Metronome body (rounded top corners where sides meet top, rounded bottom corners) -->
+    <path d="M260 820 L415 170 Q430 150, 450 150 L574 150 Q594 150, 609 170 L764 820 C779 860, 759 890, 729 890 L295 890 C265 890, 245 860, 260 820 Z" fill="#8DB580" />
+    <!-- Inner highlight -->
+    <path d="M320 790 L438 215 Q450 200, 462 200 L562 200 Q574 200, 586 215 L704 790 C716 820, 702 840, 682 840 L342 840 C322 840, 308 820, 320 790 Z" fill="#B5D6A7" opacity="0.5"/>
+    <!-- Pendulum rod -->
+    <rect x="502" y="180" width="20" height="640" fill="#6B9B5E" rx="10" transform="rotate(-5 512 820)"/>
+    <!-- Pendulum weight -->
+    <rect x="465" y="400" width="94" height="70" fill="#4B7A3E" rx="20" transform="rotate(-5 512 820)"/>
+  </g>
+</svg>

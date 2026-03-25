@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- "O" ring silhouette -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M34,28 C46.15,28 56,38.75 56,54 C56,69.25 46.15,80 34,80 C21.85,80 12,69.25 12,54 C12,38.75 21.85,28 34,28 Z M34,40 C40.63,40 44,46 44,54 C44,62 40.63,68 34,68 C27.37,68 24,62 24,54 C24,46 27.37,40 34,40 Z" />
+
+    <!-- "K" silhouette -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,28 L72,28 L72,46 L88,28 L100,28 L82,50 L100,80 L88,80 L72,58 L72,80 L60,80 Z" />
+
+    <!-- Metronome body silhouette (rounded corners) -->
+    <path
+        android:fillColor="#73FFFFFF"
+        android:pathData="M27.4,86.5 L43.8,17.9 Q45.4,15.8 47.5,15.8 L60.6,15.8 Q62.7,15.8 64.2,17.9 L80.6,86.5 C82.2,90.7 80.1,93.9 76.9,93.9 L31.1,93.9 C28.0,93.9 25.8,90.7 27.4,86.5 Z" />
+
+    <!-- Pendulum rod (rotated -5°) -->
+    <group
+        android:pivotX="54"
+        android:pivotY="86.5"
+        android:rotation="-5">
+        <path
+            android:fillColor="#73FFFFFF"
+            android:pathData="M53.0,19.0 L55.1,19.0 C55.7,19.0 55.7,19.6 55.7,19.6 L55.7,86.5 C55.7,87.1 55.1,87.1 55.1,87.1 L53.0,87.1 C52.4,87.1 52.4,86.5 52.4,86.5 L52.4,19.6 C52.4,19.0 53.0,19.0 53.0,19.0 Z" />
+    </group>
+
+    <!-- Pendulum weight (rotated -5°) -->
+    <group
+        android:pivotX="54"
+        android:pivotY="86.5"
+        android:rotation="-5">
+        <path
+            android:fillColor="#73FFFFFF"
+            android:pathData="M49.1,42.2 L59.0,42.2 Q61.1,42.2 61.1,44.3 L61.1,47.5 Q61.1,49.6 59.0,49.6 L49.1,49.6 Q47.0,49.6 47.0,47.5 L47.0,44.3 Q47.0,42.2 49.1,42.2 Z" />
+    </group>
+
+</vector>

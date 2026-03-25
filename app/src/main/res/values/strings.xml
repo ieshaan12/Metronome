@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Metronome</string>
+    <string name="app_name">OK Metronomer</string>
     <string name="bpm_label">BPM</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
