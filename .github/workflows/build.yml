@@ -19,11 +19,11 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - run: ./gradlew assembleDebug
+      - run: ./gradlew assembleDevDebug
 
-      - run: ./gradlew lintDebug
+      - run: ./gradlew lintDevDebug
 
-      - run: ./gradlew test
+      - run: ./gradlew testDevDebugUnitTest
 
   release:
     runs-on: ubuntu-latest
@@ -46,12 +46,13 @@ jobs:
             -keyalg RSA -keysize 2048 -validity 1 \
             -storepass android -keypass android \
             -dname "CN=CI,O=CI"
-          printf '%s\n' \
-            'RELEASE_STORE_FILE=../keystore/ci-release.jks' \
-            'RELEASE_STORE_PASSWORD=android' \
-            'RELEASE_KEY_ALIAS=ci' \
-            'RELEASE_KEY_PASSWORD=android' > local.properties
 
-      - run: ./gradlew assembleRelease
+      - name: Build release APK
+        env:
+          RELEASE_STORE_FILE: ../keystore/ci-release.jks
+          RELEASE_STORE_PASSWORD: android
+          RELEASE_KEY_ALIAS: ci
+          RELEASE_KEY_PASSWORD: android
+        run: ./gradlew assembleDevRelease
 
-      - run: ./gradlew lintVitalRelease
+      - run: ./gradlew lintVitalDevRelease
