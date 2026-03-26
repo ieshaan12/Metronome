@@ -12,7 +12,13 @@ rootProject.file("local.properties").let { file ->
     if (file.exists()) FileInputStream(file).use { localProperties.load(it) }
 }
 
-fun localProp(key: String): String = localProperties.getProperty(key, "")
+fun prop(key: String): String =
+    System.getenv(key)?.takeIf { it.isNotEmpty() }
+        ?: localProperties.getProperty(key, "")
+
+val majorVersion: Int = (findProperty("MAJOR_VERSION") as? String)?.toIntOrNull() ?: 1
+val buildNumber: Int = (findProperty("BUILD_NUMBER") as? String)?.toIntOrNull() ?: 1
+val buildNumberPadded: String = "%03d".format(buildNumber)
 
 android {
     namespace = "com.ieshaan12.metronome"
@@ -26,19 +32,18 @@ android {
         applicationId = "com.ieshaan12.metronome"
         minSdk = 29
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionName = "$majorVersion.$buildNumberPadded"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
         create("release") {
-            val storePath = localProp("RELEASE_STORE_FILE")
+            val storePath = prop("RELEASE_STORE_FILE")
             storeFile = if (storePath.isNotEmpty()) file(storePath) else null
-            storePassword = localProp("RELEASE_STORE_PASSWORD")
-            keyAlias = localProp("RELEASE_KEY_ALIAS")
-            keyPassword = localProp("RELEASE_KEY_PASSWORD")
+            storePassword = prop("RELEASE_STORE_PASSWORD")
+            keyAlias = prop("RELEASE_KEY_ALIAS")
+            keyPassword = prop("RELEASE_KEY_PASSWORD")
         }
     }
 
@@ -55,6 +60,33 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+    flavorDimensions += "track"
+    productFlavors {
+        create("dev") {
+            dimension = "track"
+            versionCode = majorVersion * 10000 + buildNumber * 10 + 0
+            versionNameSuffix = ".00"
+            buildConfigField("String", "TRACK", "\"dev\"")
+        }
+        create("production") {
+            dimension = "track"
+            versionCode = majorVersion * 10000 + buildNumber * 10 + 1
+            versionNameSuffix = ".01"
+            buildConfigField("String", "TRACK", "\"production\"")
+        }
+        create("closedTesting") {
+            dimension = "track"
+            versionCode = majorVersion * 10000 + buildNumber * 10 + 2
+            versionNameSuffix = ".02"
+            buildConfigField("String", "TRACK", "\"closedTesting\"")
+        }
+        create("internalTesting") {
+            dimension = "track"
+            versionCode = majorVersion * 10000 + buildNumber * 10 + 3
+            versionNameSuffix = ".03"
+            buildConfigField("String", "TRACK", "\"internalTesting\"")
         }
     }
     compileOptions {
